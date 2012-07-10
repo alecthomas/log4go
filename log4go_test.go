@@ -18,7 +18,7 @@ const testLogFile = "_logtest.log"
 
 var now time.Time = time.Unix(0, 1234567890123456789).In(time.UTC)
 
-func newLogRecord(lvl level, src string, msg string) *LogRecord {
+func newLogRecord(lvl Level, src string, msg string) *LogRecord {
 	return &LogRecord{
 		Level:   lvl,
 		Source:  src,
