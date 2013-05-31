@@ -3,9 +3,10 @@
 package log4go
 
 import (
+	"fmt"
 	"io"
 	"os"
-	"fmt"
+	"time"
 )
 
 var stdout io.Writer = os.Stdout
@@ -42,4 +43,5 @@ func (w ConsoleLogWriter) LogWrite(rec *LogRecord) {
 // send log messages to this logger after a Close have undefined behavior.
 func (w ConsoleLogWriter) Close() {
 	close(w)
+	time.Sleep(50 * time.Millisecond) // Try to give console I/O time to complete
 }
