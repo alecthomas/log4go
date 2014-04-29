@@ -140,7 +140,7 @@ func (w *FileLogWriter) intRotate() error {
 			num := 1
 			fname := ""
 			for ; err == nil && num <= 999; num++ {
-				fname = w.Filename + fmt.Sprintf(".%s.%03d", time.Now().Format("2006-01-02"), num)
+				fname = w.filename + fmt.Sprintf(".%s.%03d", time.Now().Format("2006-01-02"), num)
 				_, err = os.Lstat(fname)
 			}
 			// return error if the last file checked still existed
