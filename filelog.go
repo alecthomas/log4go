@@ -140,14 +140,14 @@ func (w *FileLogWriter) intRotate() error {
 			num := 1
 			fname := ""
 			for ; err == nil && num <= 999; num++ {
-				fname = w.filename + fmt.Sprintf(".%03d", num)
+				fname = w.Filename + fmt.Sprintf(".%s.%03d", time.Now().Format("2006-01-02"), num)
 				_, err = os.Lstat(fname)
 			}
 			// return error if the last file checked still existed
 			if err == nil {
 				return fmt.Errorf("Rotate: Cannot find free log number to rename %s\n", w.filename)
 			}
-
+			w.file.Close()
 			// Rename the file to its newfound home
 			err = os.Rename(w.filename, fname)
 			if err != nil {
