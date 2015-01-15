@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strings"
 )
 
 const (
@@ -78,6 +79,9 @@ func FormatLogRecord(format string, rec *LogRecord) string {
 				out.WriteString(levelStrings[rec.Level])
 			case 'S':
 				out.WriteString(rec.Source)
+			case 's':
+				slice := strings.Split(rec.Source, "/")
+				out.WriteString(slice[len(slice)-1])
 			case 'M':
 				out.WriteString(rec.Message)
 			}
