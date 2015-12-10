@@ -29,7 +29,7 @@ func NewConsoleLogWriter() *ConsoleLogWriter {
 func (c *ConsoleLogWriter) SetFormat(format string) {
 	c.format = format
 }
-func (c ConsoleLogWriter) run(out io.Writer) {
+func (c *ConsoleLogWriter) run(out io.Writer) {
 	for rec := range c.w {
 		fmt.Fprint(out, FormatLogRecord(c.format, rec))
 	}
@@ -37,13 +37,13 @@ func (c ConsoleLogWriter) run(out io.Writer) {
 
 // This is the ConsoleLogWriter's output method.  This will block if the output
 // buffer is full.
-func (c ConsoleLogWriter) LogWrite(rec *LogRecord) {
+func (c *ConsoleLogWriter) LogWrite(rec *LogRecord) {
 	c.w <- rec
 }
 
 // Close stops the logger from sending messages to standard output.  Attempts to
 // send log messages to this logger after a Close have undefined behavior.
-func (c ConsoleLogWriter) Close() {
+func (c *ConsoleLogWriter) Close() {
 	close(c.w)
 	time.Sleep(50 * time.Millisecond) // Try to give console I/O time to complete
 }
