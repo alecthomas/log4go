@@ -144,7 +144,7 @@ func (w *FileLogWriter) intRotate() error {
 			if w.daily && time.Now().Day() != w.daily_opendate {
 				yesterday := time.Now().AddDate(0, 0, -1).Format("2006-01-02")
 
-				for ; err == nil && num <= 999; num++ {
+				for ; err == nil && num <= w.maxbackup; num++ {
 					fname = w.filename + fmt.Sprintf(".%s.%03d", yesterday, num)
 					_, err = os.Lstat(fname)
 				}
